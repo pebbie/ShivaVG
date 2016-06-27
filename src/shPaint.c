@@ -122,6 +122,38 @@ VG_API_CALL void vgSetPaint(VGPaint paint, VGbitfield paintModes)
   VG_RETURN(VG_NO_RETVAL);
 }
 
+VG_API_CALL VGPaint vgGetPaint(VGPaintMode paintMode)
+{
+  /* from https://github.com/pzl/ShivaVG/commit/c3e7849f42afb47a142938b5842f730dfe6d66a8 */
+  VG_GETCONTEXT(VG_NO_RETVAL);
+  if (paintMode & VG_STROKE_PATH)
+    VG_RETURN((VGPaint) context->strokePaint);
+  if (paintMode & VG_FILL_PATH)
+    VG_RETURN((VGPaint) context->fillPaint);
+}
+
+VG_API_CALL void vgSetColor(VGPaint paint, VGuint rgba)
+{
+  /* stub */
+  VG_GETCONTEXT(VG_NO_RETVAL);
+  
+  /* Check if handle valid */
+  VG_RETURN_ERR_IF(!shIsValidPaint(context, paint) &&
+                   paint != VG_INVALID_HANDLE,
+                   VG_BAD_HANDLE_ERROR, VG_NO_RETVAL);
+
+  VG_RETURN(VG_NO_RETVAL);
+}
+
+VG_API_CALL VGuint vgGetColor(VGPaint paint)
+{
+  /* stub */
+  VGuint ret = 0;
+
+  VG_RETURN(ret);
+}
+
+
 VG_API_CALL void vgPaintPattern(VGPaint paint, VGImage pattern)
 {
   VG_GETCONTEXT(VG_NO_RETVAL);
